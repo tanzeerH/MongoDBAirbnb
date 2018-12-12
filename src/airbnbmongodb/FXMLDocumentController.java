@@ -57,7 +57,20 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
-        label.setText("Hello World!");
+         Stage stage;
+        Parent root;
+        stage = (Stage) tbAll.getScene().getWindow();
+        //load up OTHER FXML document
+        try {
+            System.out.println("insert clicked");
+             root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+             Scene scene = new Scene(root,Constant.WINDOW_WIDTH,Constant.WINDOW_HEIGHT);
+            stage.setTitle("Insert Document");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML

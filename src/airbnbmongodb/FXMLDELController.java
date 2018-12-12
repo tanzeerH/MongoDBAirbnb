@@ -45,12 +45,62 @@ public class FXMLDELController implements Initializable{
     TableView tbAll;
     
     private  ObservableList<Listing> data;
+    
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
-        
+         Stage stage;
+        Parent root;
+        stage = (Stage) tbAll.getScene().getWindow();
+        //load up OTHER FXML document
+        try {
+            System.out.println("insert clicked");
+             root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+             Scene scene = new Scene(root,Constant.WINDOW_WIDTH,Constant.WINDOW_HEIGHT);
+            stage.setTitle("Insert Document");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-   
+    
+    @FXML
+    private void handleInsertAction(ActionEvent event) {
+        Stage stage;
+        Parent root;
+        stage = (Stage) tbAll.getScene().getWindow();
+        //load up OTHER FXML document
+        try {
+            System.out.println("insert clicked");
+             root = FXMLLoader.load(getClass().getResource("Insert.fxml"));
+             Scene scene = new Scene(root,Constant.WINDOW_WIDTH,Constant.WINDOW_HEIGHT);
+            stage.setTitle("Insert Document");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    private void handleUpdate(ActionEvent event) {
+        Stage stage;
+        Parent root;
+        System.out.println("update clicked");
+        stage = (Stage) tbAll.getScene().getWindow();
+        //load up OTHER FXML document
+        try {
+            System.out.println("insert clicked");
+             root = FXMLLoader.load(getClass().getResource("FXMLDocumentDelete.fxml"));
+             Scene scene = new Scene(root,Constant.WINDOW_WIDTH,Constant.WINDOW_HEIGHT);
+            stage.setTitle("Delete Document");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void handleMap(ActionEvent event) {
         Stage stage;
@@ -67,6 +117,7 @@ public class FXMLDELController implements Initializable{
             e.printStackTrace();
         }
     }
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -116,7 +167,40 @@ public class FXMLDELController implements Initializable{
        Url.setCellFactory(TextFieldTableCell.forTableColumn());     
          tbAll.setItems(data);
         // tbAll.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-         tbAll.getColumns().addAll(Name,Url);
+         TableColumn Price = new TableColumn("Price"); 
+     Price.setPrefWidth(column_maxWidth);
+     Price.setCellValueFactory(
+            new PropertyValueFactory<Listing, String>("price"));  
+     Price.setCellFactory(TextFieldTableCell.forTableColumn());
+     
+     //Latitude
+      TableColumn Lat = new TableColumn("latitude"); 
+     Lat.setPrefWidth(column_maxWidth);
+     Lat.setCellValueFactory(
+            new PropertyValueFactory<Listing, String>("latitude"));  
+     Lat.setCellFactory(TextFieldTableCell.forTableColumn());
+     
+     //Longitude
+     TableColumn Longitude = new TableColumn("longitude"); 
+     Longitude.setPrefWidth(column_maxWidth);
+     Longitude.setCellValueFactory(
+            new PropertyValueFactory<Listing, String>("longitude"));  
+     Longitude.setCellFactory(TextFieldTableCell.forTableColumn());
+     
+     //review
+      TableColumn Review = new TableColumn("review"); 
+     Review.setPrefWidth(column_maxWidth);
+     Review.setCellValueFactory(
+            new PropertyValueFactory<Listing, String>("review"));  
+     Review.setCellFactory(TextFieldTableCell.forTableColumn());
+     
+     
+     //city
+      TableColumn City = new TableColumn("city"); 
+     City.setPrefWidth(column_maxWidth);
+     City.setCellValueFactory(
+            new PropertyValueFactory<Listing, String>("city"));  
+     City.setCellFactory(TextFieldTableCell.forTableColumn());
          
          
          TableColumn Remove = new TableColumn("Remove");
@@ -124,6 +208,7 @@ public class FXMLDELController implements Initializable{
          Remove.setPrefWidth(200);
          
          tbAll.getColumns().addAll(Remove);
+         tbAll.getColumns().addAll(Name,Url,Review,Price,City,Lat,Longitude);
         tbAll.getSelectionModel().setCellSelectionEnabled(true);
         ObservableList selectedCells = tbAll.getSelectionModel().getSelectedCells();
 
