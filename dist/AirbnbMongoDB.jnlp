@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="AirbnbMongoDB.jnlp">
+  <information>
+    <title>AirbnbMongoDB</title>
+    <vendor>hossa</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="AirbnbMongoDB.jar" size="23727" download="eager" />
+    <jar href="lib\mongo-java-driver-2.10.1-sources.jar" size="275961" download="eager" />
+    <jar href="lib\mongo-java-driver-2.10.1.jar" size="398520" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="AirbnbMongoDB" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="airbnbmongodb.AirbnbMongoDB"  name="AirbnbMongoDB" />
+  <update check="always"/>
+</jnlp>
