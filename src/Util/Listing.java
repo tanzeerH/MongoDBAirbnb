@@ -197,8 +197,8 @@ public class Listing
                 listing.country=bo.get("country").toString();
                 listing.latitude = bo.get("latitude").toString();
                 listing.longitude = bo.get("longitude").toString();
-                 if(bo.get("bathrooms")!= null)
-                        listing.bathrooms=bo.get("bathrooms").toString();
+                 if(bo.get("bathroom")!= null)
+                        listing.bathrooms=bo.get("bathroom").toString();
                 if(bo.get("bedrooms")!= null)
                         listing.bedroom = bo.get("bedrooms").toString();
                  if(bo.get("price")!= null)

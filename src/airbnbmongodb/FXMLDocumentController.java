@@ -189,18 +189,73 @@ public class FXMLDocumentController implements Initializable {
             new PropertyValueFactory<Listing, String>("url"));  
      Url.setCellFactory(TextFieldTableCell.forTableColumn());  
      
+      Url.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Listing, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Listing, String> t) {
+                  String val= t.getNewValue();
+                  int row = t.getTablePosition().getRow();
+                  int col = t.getTablePosition().getColumn();
+                    BasicDBObject updateDocument = new BasicDBObject();
+                    updateDocument.append("$set", new BasicDBObject().append("url", val.toString()));
+                    
+                    System.out.println("ObjectId("+data.get(row)._id+")");
+                    BasicDBObject searchQuery2 = new BasicDBObject().append("_id", new ObjectId(data.get(row)._id) );
+
+                    Connection.getDataBaseInstance().getCollection(Constant.LISTING).update(searchQuery2, updateDocument);
+                    JOptionPane.showMessageDialog(null, "update Successful");
+                }
+            }
+    );
+     
      TableColumn Summary = new TableColumn("Summary"); 
      Summary.setPrefWidth(column_maxWidth);
      Summary.setCellValueFactory(
             new PropertyValueFactory<Listing, String>("summary"));  
      Summary.setCellFactory(TextFieldTableCell.forTableColumn()); 
-     
+      Summary.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Listing, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Listing, String> t) {
+                  String val= t.getNewValue();
+                  int row = t.getTablePosition().getRow();
+                  int col = t.getTablePosition().getColumn();
+                    BasicDBObject updateDocument = new BasicDBObject();
+                    updateDocument.append("$set", new BasicDBObject().append("summary", val.toString()));
+                    
+                    System.out.println("ObjectId("+data.get(row)._id+")");
+                    BasicDBObject searchQuery2 = new BasicDBObject().append("_id", new ObjectId(data.get(row)._id) );
+
+                    Connection.getDataBaseInstance().getCollection(Constant.LISTING).update(searchQuery2, updateDocument);
+                    JOptionPane.showMessageDialog(null, "update Successful");
+                }
+            }
+    );
      //street
       TableColumn Street = new TableColumn("Street"); 
      Street.setPrefWidth(column_maxWidth);
      Street.setCellValueFactory(
             new PropertyValueFactory<Listing, String>("street"));  
      Street.setCellFactory(TextFieldTableCell.forTableColumn()); 
+     
+      Street.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Listing, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Listing, String> t) {
+                  String val= t.getNewValue();
+                  int row = t.getTablePosition().getRow();
+                  int col = t.getTablePosition().getColumn();
+                    BasicDBObject updateDocument = new BasicDBObject();
+                    updateDocument.append("$set", new BasicDBObject().append("street", val.toString()));
+                    
+                    System.out.println("ObjectId("+data.get(row)._id+")");
+                    BasicDBObject searchQuery2 = new BasicDBObject().append("_id", new ObjectId(data.get(row)._id) );
+
+                    Connection.getDataBaseInstance().getCollection(Constant.LISTING).update(searchQuery2, updateDocument);
+                    JOptionPane.showMessageDialog(null, "update Successful");
+                }
+            }
+    );
      
      //guest
       TableColumn Guest = new TableColumn("Guest"); 
@@ -223,13 +278,30 @@ public class FXMLDocumentController implements Initializable {
      City.setCellValueFactory(
             new PropertyValueFactory<Listing, String>("city"));  
      City.setCellFactory(TextFieldTableCell.forTableColumn());
-       
+      City.setOnEditCommit(
+            new EventHandler<TableColumn.CellEditEvent<Listing, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Listing, String> t) {
+                  String val= t.getNewValue();
+                  int row = t.getTablePosition().getRow();
+                  int col = t.getTablePosition().getColumn();
+                    BasicDBObject updateDocument = new BasicDBObject();
+                    updateDocument.append("$set", new BasicDBObject().append("city", val.toString()));
+                    
+                    System.out.println("ObjectId("+data.get(row)._id+")");
+                    BasicDBObject searchQuery2 = new BasicDBObject().append("_id", new ObjectId(data.get(row)._id) );
+
+                    Connection.getDataBaseInstance().getCollection(Constant.LISTING).update(searchQuery2, updateDocument);
+                    JOptionPane.showMessageDialog(null, "update Successful");
+                }
+            }
+    ); 
      
       //zip
      TableColumn Zip = new TableColumn("Zip"); 
      Zip.setPrefWidth(column_maxWidth);
      Zip.setCellValueFactory(
-            new PropertyValueFactory<Listing, String>("guest"));  
+            new PropertyValueFactory<Listing, String>("zip"));  
      Zip.setCellFactory(TextFieldTableCell.forTableColumn());
      
      //country
@@ -281,7 +353,7 @@ public class FXMLDocumentController implements Initializable {
         
         
         
-       tbAll.getColumns().addAll(Name,Url,Summary,Street,City, Zip,Bedroom,Bathrooms,Lat,Longitude,Price);
+       tbAll.getColumns().addAll(Name,Url,Summary,Street,City, Zip,Country,Review,Bedroom,Bathrooms,Lat,Longitude,Price);
  
 
        
@@ -289,7 +361,7 @@ public class FXMLDocumentController implements Initializable {
        
          
       //  tbAll.getColumns().addAll(Update);
-        tbAll.getSelectionModel().setCellSelectionEnabled(true);
+       /* tbAll.getSelectionModel().setCellSelectionEnabled(true);
         ObservableList selectedCells = tbAll.getSelectionModel().getSelectedCells();
 
         selectedCells.addListener(new ListChangeListener() {
@@ -310,10 +382,22 @@ public class FXMLDocumentController implements Initializable {
                     Connection.getDataBaseInstance().getCollection(Constant.LISTING).update(searchQuery2, updateDocument);
                     JOptionPane.showMessageDialog(null, "update Successful");
                 }
+                else
+                     if( col == 1)
+                {
+                    BasicDBObject updateDocument = new BasicDBObject();
+                    updateDocument.append("$set", new BasicDBObject().append("name", val.toString()));
+                    
+                    BasicDBObject searchQuery2 = new BasicDBObject().append("_id", data.get(row)._id);
+
+                    Connection.getDataBaseInstance().getCollection(Constant.LISTING).update(searchQuery2, updateDocument);
+                    JOptionPane.showMessageDialog(null, "update Successful");
+                }
+                
                 // System.out.println("Selected Value" + val + "ssn "+ tableDrug.getSelectionModel().getSelectedIndex());
                 
             }
-        });
+        });*/
    
         }
     
