@@ -200,7 +200,9 @@ public class Listing
                  if(bo.get("bathrooms")!= null)
                         listing.bathrooms=bo.get("bathrooms").toString();
                 if(bo.get("bedrooms")!= null)
-                        listing.price = bo.get("bedrooms").toString();
+                        listing.bedroom = bo.get("bedrooms").toString();
+                 if(bo.get("price")!= null)
+                        listing.price = bo.get("price").toString();
                 System.out.println(""+listing.name);
                 
                 list.add(listing);

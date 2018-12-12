@@ -8,34 +8,26 @@ import com.mongodb.MapReduceOutput;
 
 public class MapReduce {
 
-	public static String sampleMapReduce() {
-            String price = "5";
+	public static String sampleMapReduce(String price) {
+           // String price = "1";
+           if(price.length() == 0)
+               price = "0";
 		DB db = Connection.getDataBaseInstance();
 		DBCollection listing = db.getCollection(Connection.LISTING);
 		String map = "function() { " +
 
-				"var category; " +
+				"if ( this.price >= " +price+" ) { " +
 
-				"if ( this.price >= "+price +" ) " +
+				"category = 'Costly'; emit('Costly', 1); emit('Cheap', 0);}" +
 
-				"category = 'Costly'; " +
-
-				"else " +
-
-				"category = 'Cheap'; " +
-
-				"emit(category, {name: this.name});}";
+				"else {" +
+                               " emit('Costly', 0); emit('Cheap', 1);"+
+				"} }";
 		String reduce = "function(key, values) { " +
 
-				"var sum = 0; " +
+				"var total = 0; for(var i = 0; i < values.length; i++) {total += values[i];}"+
 
-				"values.forEach(function(doc) { " +
-
-				"sum += 1; " +
-
-				"}); " +
-
-				"return {count: sum};} ";
+				"return total;} ";
 
 		MapReduceCommand cmd = new MapReduceCommand(listing, map, reduce,
 
@@ -45,16 +37,17 @@ public class MapReduce {
 
                 String res= "";
 		for (DBObject o : out.results()) {
-
+                       
+                     res += o.get("_id").toString()+" : "+o.get("value").toString()+"\n";
 			System.out.println(o.toString());
-                        res += o.toString()+"\n";
+                       
 
 		}
                 return res;
 
 	}
 	public static void main(String[] args) {
-		sampleMapReduce();
+		//sampleMapReduce();
 	}
 
 }

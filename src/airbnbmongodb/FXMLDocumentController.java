@@ -255,6 +255,12 @@ public class FXMLDocumentController implements Initializable {
      Bedroom.setCellValueFactory(
             new PropertyValueFactory<Listing, String>("bedroom"));  
      Bedroom.setCellFactory(TextFieldTableCell.forTableColumn());
+     
+      TableColumn Price = new TableColumn("Price"); 
+     Price.setPrefWidth(column_maxWidth);
+     Price.setCellValueFactory(
+            new PropertyValueFactory<Listing, String>("price"));  
+     Price.setCellFactory(TextFieldTableCell.forTableColumn());
        
        
        tbAll.setItems(data);
@@ -262,7 +268,7 @@ public class FXMLDocumentController implements Initializable {
         
         
         
-       tbAll.getColumns().addAll(Name,Url,Summary,Street,City, Zip,Bedroom,Bathrooms,Lat,Longitude);
+       tbAll.getColumns().addAll(Name,Url,Summary,Street,City, Zip,Bedroom,Bathrooms,Lat,Longitude,Price);
  
 
        

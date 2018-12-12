@@ -43,6 +43,9 @@ public class FXMLMapReduceDocumentController implements Initializable {
     @FXML
     TextArea resq1; 
     
+     @FXML
+    TextField tvLimit; 
+    
     private  ObservableList<Listing> data;
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -51,7 +54,8 @@ public class FXMLMapReduceDocumentController implements Initializable {
     }
      @FXML
     private void handleQuery1(ActionEvent event) {
-       String res= MapReduce.sampleMapReduce();
+        String cost = tvLimit.getText().toString();
+       String res= MapReduce.sampleMapReduce(cost);
        resq1.setText(res);
     }
     @Override
