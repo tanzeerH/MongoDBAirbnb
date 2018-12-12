@@ -9,6 +9,8 @@ import Util.Connection;
 import Util.Constant;
 import Util.Listing;
 import Util.MapReduce;
+import Util.MapReduceByRoomAndPrice;
+import Util.MapReduceGroupByRating;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -44,7 +46,13 @@ public class FXMLMapReduceDocumentController implements Initializable {
     TextArea resq1; 
     
      @FXML
-    TextField tvLimit; 
+    TextField tvLimit;
+     
+    @FXML
+    TextField tvPrice;
+      
+    @FXML
+    TextField tvRoom;
     
     private  ObservableList<Listing> data;
     @FXML
@@ -56,6 +64,24 @@ public class FXMLMapReduceDocumentController implements Initializable {
     private void handleQuery1(ActionEvent event) {
         String cost = tvLimit.getText().toString();
        String res= MapReduce.sampleMapReduce(cost);
+       resq1.setText(res);
+    }
+      @FXML
+    private void handleQuery2(ActionEvent event) {
+        System.out.println("query2 called");
+        String cost = tvPrice.getText().toString();
+        String room = tvRoom.getText().toString();
+       String res= MapReduceByRoomAndPrice.sampleMapReduce(cost, room);
+     // String res= MapReduceGroupByRating.sampleMapReduce();
+       resq1.setText(res);
+    }
+     @FXML
+     private void handleQuery3(ActionEvent event) {
+        System.out.println("query2 called");
+       // String cost = tvPrice.getText().toString();
+       // String room = tvRoom.getText().toString();
+      // String res= MapReduceByRoomAndPrice.sampleMapReduce(cost, room);
+      String res= MapReduceGroupByRating.sampleMapReduce();
        resq1.setText(res);
     }
     @Override
