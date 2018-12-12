@@ -77,6 +77,25 @@ public class FXMLDocumentController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    @FXML
+    private void handleUpdate(ActionEvent event) {
+        Stage stage;
+        Parent root;
+        System.out.println("update clicked");
+        stage = (Stage) tbAll.getScene().getWindow();
+        //load up OTHER FXML document
+        try {
+            System.out.println("insert clicked");
+             root = FXMLLoader.load(getClass().getResource("FXMLDocumentDelete.fxml"));
+             Scene scene = new Scene(root,Constant.WINDOW_WIDTH,Constant.WINDOW_HEIGHT);
+            stage.setTitle("Delete Document");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void handleMap(ActionEvent event) {
         Stage stage;

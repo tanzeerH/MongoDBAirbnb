@@ -8,6 +8,7 @@ package airbnbmongodb;
 import Util.Connection;
 import Util.Constant;
 import Util.Listing;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -32,6 +33,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -68,11 +70,15 @@ public class FXMLDELController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-      ArrayList<DBObject> objctList = readAll();
+      refresh();
+    } 
+    private void refresh()
+    {
+        ArrayList<DBObject> objctList = readAll();
       ArrayList<Listing> docs = Listing.getListingFromDocObject(objctList);
       data = FXCollections.observableArrayList(docs);
       initTableView();
-    } 
+    }
     public ArrayList<DBObject> readAll()
     {
         ArrayList<DBObject> objctList = new ArrayList<>();
@@ -121,19 +127,25 @@ public class FXMLDELController implements Initializable{
         tbAll.getSelectionModel().setCellSelectionEnabled(true);
         ObservableList selectedCells = tbAll.getSelectionModel().getSelectedCells();
 
+        try{
         selectedCells.addListener(new ListChangeListener() {
             @Override
             public void onChanged(ListChangeListener.Change c) {
-                 TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
                 Object val = tablePosition.getTableColumn().getCellData(tablePosition.getRow());
-                int i = tbAll.getSelectionModel().getSelectedIndex();
-                // System.out.println("Selected Value" + val + "ssn "+ tableDrug.getSelectionModel().getSelectedIndex());
+                int row = tbAll.getSelectionModel().getSelectedIndex();
+                int col = tablePosition.getColumn();
                 if (val.toString().equals("Delete")) {
                    // String s = ((Drug) tableDrug.getItems().get(i)).getSsn();
                    // System.out.println(s);
                     int dialogButton = JOptionPane.YES_NO_OPTION;
                     int dialog_result = JOptionPane.showConfirmDialog(null, "Are you sure?");
                     if (dialog_result == 0) {
+                       // String id = data.get(row)._id;
+                        BasicDBObject basicDBObject = new BasicDBObject().append("_id", new ObjectId(data.get(row)._id) );
+                        Connection.getDataBaseInstance().getCollection(Constant.LISTING).remove(basicDBObject);
+                        JOptionPane.showMessageDialog(null, "Document Deleted.");
+                        refresh();
                         System.out.println("Yes option");
                     } else {
                         System.out.println("No Option");
@@ -141,6 +153,11 @@ public class FXMLDELController implements Initializable{
                 }
             }
         });
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
         
 
    
